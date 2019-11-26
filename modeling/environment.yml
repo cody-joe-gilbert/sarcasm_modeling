@@ -1,0 +1,25 @@
+name: ENV
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - pip
+  - python=3.5.6
+  - matplotlib
+  - numpy
+  - statsmodels
+  - pandas
+  - scipy
+  - seaborn
+  - opencv
+  - keras
+  - tensorflow
+  - patsy
+  - pandas-datareader
+  - ipykernel
+  - scikit-learn
+  - pystan
+  - fbprophet
+  - pip:
+    - numdifftools
+    - pyflux
