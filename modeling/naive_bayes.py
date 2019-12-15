@@ -1,9 +1,15 @@
+'''
+Statistical NLP: Final Project
+Cody Gilbert
+
+This module implements Naive Bayes using the NLTK package
+'''
+
 import sys
 import os
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-
 import pandas as pd
 import nltk
 #nltk.download('punkt')
@@ -14,10 +20,6 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.classify import apply_features
 from nltk.util import ngrams
-
-stop_words = set(stopwords.words('english'))
-lemmatizer = WordNetLemmatizer()
-
 import logging
 import logging.handlers
 logger = logging.getLogger('__name__')
@@ -30,13 +32,14 @@ logger.addHandler(file_handler)
 stream_handler = logging.StreamHandler()
 logger.addHandler(stream_handler)
 
-
+stop_words = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
 vocab_size = 5000
 max_review_length = 200
 embedding_vector_length = 32
-test_fraction = 0.33
+test_fraction = 0.25
 valid_fraction = 0.25
-reviews_file = 'train-balanced-sarcasm_cleaned.csv'
+reviews_file = 'train-balanced-sarcasm.csv'
 
 msg = (f'Fitting models with:\n'
         f'\t Vocab Size: {vocab_size}\n'
@@ -51,8 +54,9 @@ text = pd.read_csv(reviews_file, index_col=None, nrows=10000)
 reals = text['comment'].notna()
 text = text.loc[reals, :]
 
-
+# Perform train/validation/test sets
 train, test = train_test_split(text, test_size=test_fraction)
+train, valid = train_test_split(text, test_size=valid_fraction)
 
 # Tokenize, Remove Stop words, and Lemmatize
 def clean_words(text):
@@ -96,7 +100,7 @@ def comment_word_features(row_iter):
     return (features, label)
 
 train_set = [comment_word_features(x) for x in train.iterrows()]
-test_set = [comment_word_features(x) for x in test.iterrows()]
+valid_set = [comment_word_features(x) for x in valid.iterrows()]
 logger.debug('Training classifier')
 classifier = nltk.NaiveBayesClassifier.train(train_set)
-print(nltk.classify.accuracy(classifier, test_set))
+print(nltk.classify.accuracy(classifier, valid_set))
