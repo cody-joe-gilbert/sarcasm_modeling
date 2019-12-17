@@ -52,9 +52,9 @@ def eval(model):
             text = (batch.comment[0]).to(device)
             target = batch.label
             target = (Variable(target)).to(device)
-            prediction = model(text)
-            loss = loss_fn(prediction, target)
-            num_corrects = (torch.max(prediction, 1)[1].view(target.size()).data == target.data).sum()
+            output = model(text)
+            loss = loss_fn(output, target)
+            num_corrects = (torch.max(output, 1)[1].view(target.size()).data == target.data).sum()
             acc = 100.0 * num_corrects/len(batch)
             total_epoch_loss += loss.item()
             total_epoch_acc += acc.item()
