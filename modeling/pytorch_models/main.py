@@ -11,8 +11,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 vocab_size, word_embeddings, train_iter, valid_iter, test_iter = load_data.load_dataset()
 Config.vocab_size = vocab_size
 
-# model = SLP.SLP(word_embeddings, Config).to(device)
-model = MLP.MLP(word_embeddings, Config).to(device)
+model = SLP.SLP(word_embeddings, Config).to(device)
+# model = MLP.MLP(word_embeddings, Config).to(device)
 # model = CNN.CNN(word_embeddings).to(device)
 
 # optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=0.1)
@@ -67,6 +67,3 @@ for epoch in range(10):
     val_loss, val_acc = eval(model)
 
     print(f'Epoch: {epoch + 1:02}, Train Loss: {train_loss:.3f}, Train Acc: {train_acc:.2f}%, Val. Loss: {val_loss:3f}, Val. Acc: {val_acc:.2f}%')
-
-test_loss, test_acc = eval(model)
-print(f'Test Loss: {test_loss:.3f}, Test Acc: {test_acc:.2f}%')

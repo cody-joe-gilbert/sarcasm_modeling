@@ -13,8 +13,8 @@ class MLP(nn.Module):
         hidden_size1 = 200
         hidden_size2 = 100
 
-        self.word_embeddings = nn.Embedding(vocab_size, embedding_size)  # Initializing the look-up table.
-        self.word_embeddings.weight = nn.Parameter(word_embeddings, requires_grad=False)  # Assigning the look-up table to the pre-trained GloVe
+        self.word_embeddings = nn.Embedding(vocab_size, embedding_size)
+        self.word_embeddings.weight = nn.Parameter(word_embeddings, requires_grad=False)
 
         self.fc1 = nn.Linear(embedding_size, hidden_size1)
         self.Tanh = nn.Tanh()

@@ -23,7 +23,7 @@ class CNN(nn.Module):
         self.fc1 = nn.Linear(len(kernel_size) * out_channels, output_size)
 
     def forward(self, x):
-        x = self.word_embeddings(x)  # embedded input of shape = (batch_size, num_sequences,  embedding_length)
+        x = self.word_embeddings(x)
         x = x.unsqueeze(1)
 
         out1 = self.conv1(x)
