@@ -14,7 +14,7 @@ class SLP(nn.Module):
 
         self.word_embeddings = nn.Embedding(vocab_size, embedding_size)
         self.word_embeddings.weight = nn.Parameter(word_embeddings, requires_grad=False)
-        
+
         self.fc1 = nn.Linear(embedding_size, hidden_size)
         self.Tanh = nn.Tanh()
         self.fc2 = nn.Linear(hidden_size, output_size)

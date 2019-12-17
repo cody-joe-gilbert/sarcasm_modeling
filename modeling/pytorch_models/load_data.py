@@ -18,7 +18,7 @@ def load_dataset(test_sen=None):
     # read and import csv file. Skip rows due to memory limit and some rows have bad formatting. TODO need to clean csv
     fields = ['label', 'comment']
     df = pd.read_csv('../../data/train-balanced-sarcasm_cleaned.csv', skipinitialspace=True, usecols=fields,
-                     skiprows=range(50000, 1010827))
+                     skiprows=range(10001, 1010827))
     # df.to_csv('./data/train_data.txt', index=False, sep=',', header=None)
 
     tokenize = lambda x: x.split()
